@@ -7,19 +7,20 @@
 <script type="text/javascript" charset="utf-8">
 	function do_smile(event)
 	{
-		var currURL = safari.application.activeBrowserWindow.activeTab.url;	
+		var currURL = event.url;
 		var filter = "(redirect=true)|(redirect.html)|(/gp/wishlist)|(aws.amazon.com)";
 		if (currURL != null)
 		{
 			if(currURL.match(filter) == null)
 			{
 				currURL = currURL.replace('www.amazon.com', 'smile.amazon.com');
+			  event.preventDefault();
 				safari.application.activeBrowserWindow.activeTab.url=currURL;
 			}
 		}
 	}
 
-	safari.application.addEventListener("navigate", do_smile, true);
+	safari.application.addEventListener("beforeNavigate", do_smile, true);
 </script>
 
 </head>
